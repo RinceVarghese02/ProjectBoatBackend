@@ -100,4 +100,18 @@ router.get('/allcategoriesdata',function(req,res){
     })
 })
 
+router.get('/deleteproduct/:id',function(req,res){
+    const id=req.params.id;
+    // console.log(id)
+    ProductDetail.findByIdAndDelete(id)
+    .then(()=>{
+        res.send({message:'id deleted',idDeleted:true,})
+        console.log('id deleted')
+    })
+    .catch((err)=>{
+        res.send({message:'id not deleted',idDeleted:false,})
+        console.log('id could not be deleted')
+    })
+})
+
 module.exports = router;
