@@ -105,12 +105,26 @@ router.get('/deleteproduct/:id',function(req,res){
     // console.log(id)
     ProductDetail.findByIdAndDelete(id)
     .then(()=>{
-        res.send({message:'id deleted',idDeleted:true,})
+        res.send({message:'product id deleted',idDeleted:true,})
+        console.log('product id deleted')
+    })
+    .catch((err)=>{
+        res.send({message:'product id not deleted',idDeleted:false,})
+        console.log('product id could not be deleted')
+    })
+})
+
+router.get('/deletecategory/:id',function(req,res){
+    const id=req.params.id;
+    // console.log(id)
+    categoriesandimages.findByIdAndDelete(id)
+    .then(()=>{
+        res.send({message:'category id deleted',idDeleted:true,})
         console.log('id deleted')
     })
     .catch((err)=>{
-        res.send({message:'id not deleted',idDeleted:false,})
-        console.log('id could not be deleted')
+        res.send({message:'category id not deleted',idDeleted:false,})
+        console.log('category id could not be deleted')
     })
 })
 
