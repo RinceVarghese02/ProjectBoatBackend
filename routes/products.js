@@ -152,6 +152,48 @@ router.post('/editcategory',function(req,res){
     })
 })
 
+router.post('/getoneproduct',function(req,res){
+    const id=req.body.id;
+    // console.log(id)
+    ProductDetail.findById(id)
+    .then((data)=>{
+        res.send({message:'id found',success:true,data:data})
+    })
+    .catch((err)=>{
+        res.send({message:'id not found',success:false,err:err})
+    })
+})
+
+router.post('/editproduct',function(req,res){
+    const {_id,
+        tags,
+        image,
+        playback,
+        rating,
+        name,
+        salePrice,
+        offerPrice,
+        discount,
+        colorAvailableCount,}=req.body;
+    // console.log(image,name,_id)
+    ProductDetail.findByIdAndUpdate(_id,{
+        tags,
+        image,
+        playback,
+        rating,
+        name,
+        salePrice,
+        offerPrice,
+        discount,
+        colorAvailableCount,})
+    .then(()=>{
+        res.send({message:'id updated',success:true})
+    })
+    .catch((err)=>{
+        res.send({message:'id not updated',success:false})
+    })
+})
+
 
 
 module.exports = router;
