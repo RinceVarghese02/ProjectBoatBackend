@@ -120,12 +120,38 @@ router.get('/deletecategory/:id',function(req,res){
     categoriesandimages.findByIdAndDelete(id)
     .then(()=>{
         res.send({message:'category id deleted',idDeleted:true,})
-        console.log('id deleted')
+        // console.log('id deleted')
     })
     .catch((err)=>{
         res.send({message:'category id not deleted',idDeleted:false,})
         console.log('category id could not be deleted')
     })
 })
+
+router.post('/getonecategory',function(req,res){
+    const id=req.body.id;
+    // console.log(id)
+    categoriesandimages.findById(id)
+    .then((data)=>{
+        res.send({message:'id found',success:true,data:data})
+    })
+    .catch((err)=>{
+        res.send({message:'id not found',success:false,err:err})
+    })
+})
+
+router.post('/editcategory',function(req,res){
+    const {_id,image,name}=req.body;
+    // console.log(image,name,_id)
+    categoriesandimages.findByIdAndUpdate(_id,{image,name})
+    .then(()=>{
+        res.send({message:'id updated',success:true})
+    })
+    .catch((err)=>{
+        res.send({message:'id not updated',success:false})
+    })
+})
+
+
 
 module.exports = router;
